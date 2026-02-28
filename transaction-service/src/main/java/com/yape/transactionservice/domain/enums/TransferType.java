@@ -21,4 +21,13 @@ public enum TransferType {
         }
         throw new IllegalArgumentException("TransferType not found: " + id);
     }
+
+    public static String getNameById(Integer id) {
+        for (TransferType type : values()) {
+            if (type.id.equals(id)) return type.name;
+        }
+        throw new IllegalArgumentException("TransferType not found: " + id);
+    }
+
+
 }

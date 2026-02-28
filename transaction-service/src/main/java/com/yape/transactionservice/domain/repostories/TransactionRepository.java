@@ -7,9 +7,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface TransactionRepository {
-    Optional<Transaction> GetById(UUID id);
+    Optional<Transaction> getById(UUID id);
 
-    Transaction Create(Transaction transaction);
+    Transaction create(Transaction transaction);
 
-    List<Transaction> GetAll();
+    List<Transaction> getAll();
 }

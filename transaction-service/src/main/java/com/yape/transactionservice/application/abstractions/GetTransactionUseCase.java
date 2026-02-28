@@ -3,6 +3,8 @@ package com.yape.transactionservice.application.abstractions;
 import com.yape.transactionservice.application.usecases.gettransaction.GetTransactionRequest;
 import com.yape.transactionservice.application.usecases.gettransaction.GetTransactionResponse;
 
+import java.util.List;
+
 public interface GetTransactionUseCase {
-    GetTransactionResponse execute(GetTransactionRequest request);
+    List<GetTransactionResponse> execute(GetTransactionRequest request);
 }

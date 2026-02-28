@@ -19,7 +19,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class TransactionEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    // @GeneratedValue(strategy = GenerationType.UUID)
     private UUID transactionExternalId;
     @Column(nullable = false)
     private UUID accountExternalIdDebit;
