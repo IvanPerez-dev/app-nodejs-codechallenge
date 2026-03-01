@@ -25,13 +25,13 @@ public class Transaction {
 
     public static Transaction Create(UUID idDebit, UUID idCredit, Integer transferTypeId, BigDecimal value) {
         return Transaction.builder().transactionExternalId(UUID.randomUUID())
-                .accountExternalIdCredit(idCredit)
-                .accountExternalIdDebit(idDebit)
-                .transferTypeId(transferTypeId)
-                .value(value)
-                .status(TransactionStatus.PENDING)
-                .createdAt(LocalDateTime.now())
-                .build();
+                          .accountExternalIdCredit(idCredit)
+                          .accountExternalIdDebit(idDebit)
+                          .transferTypeId(transferTypeId)
+                          .value(value)
+                          .status(TransactionStatus.PENDING)
+                          .createdAt(LocalDateTime.now())
+                          .build();
 
     }
 
@@ -41,5 +41,9 @@ public class Transaction {
 
     public void reject() {
         this.status = TransactionStatus.REJECTED;
+    }
+
+    public void changeStatus(TransactionStatus status) {
+        this.status = status;
     }
 }

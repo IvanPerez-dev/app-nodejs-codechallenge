@@ -4,7 +4,6 @@ import com.yape.transactionservice.domain.models.Transaction;
 
 public interface TransactionEventListener {
 
-    void onTransactionStatusApproved(Transaction transaction);
+    void onTransactionStatusUpdated(Transaction transaction);
 
-    void onTransactionStatusRejected(Transaction transaction);
 }

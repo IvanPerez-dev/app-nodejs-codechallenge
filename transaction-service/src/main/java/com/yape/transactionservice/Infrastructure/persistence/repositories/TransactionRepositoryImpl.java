@@ -14,7 +14,9 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     private final TransactionEntityMapper mapper;
     private final TransactionJpaRepository transactionJpaRepository;
 
-    public TransactionRepositoryImpl(TransactionEntityMapper mapper, TransactionJpaRepository transactionJpaRepository) {
+    public TransactionRepositoryImpl(TransactionEntityMapper mapper,
+                                     TransactionJpaRepository transactionJpaRepository
+    ) {
         this.mapper = mapper;
         this.transactionJpaRepository = transactionJpaRepository;
     }
@@ -22,12 +24,12 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     @Override
     public Optional<Transaction> getById(UUID id) {
         return transactionJpaRepository.findById(id)
-                .map(mapper::toModel);
+                                       .map(mapper::toModel);
 
     }
 
     @Override
-    public Transaction create(Transaction transaction) {
+    public Transaction save(Transaction transaction) {
         var entity = mapper.toEntity(transaction);
         var Transaction = transactionJpaRepository.save(entity);
 

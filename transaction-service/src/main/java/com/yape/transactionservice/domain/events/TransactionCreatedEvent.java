@@ -1,8 +1,6 @@
 package com.yape.transactionservice.domain.events;
 
-import java.math.BigDecimal;
-import java.util.UUID;
+import com.yape.transactionservice.domain.models.Transaction;
 
-public record TransactionCreatedEvent(UUID transactionId,
-                                      BigDecimal value) {
+public record TransactionCreatedEvent(Transaction transaction) {
 }

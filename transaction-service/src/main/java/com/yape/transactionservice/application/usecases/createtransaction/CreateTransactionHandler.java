@@ -15,7 +15,8 @@ public class CreateTransactionHandler implements CreateTransactionUseCase {
 
     public CreateTransactionHandler(CreateTransactionMapper mapper,
                                     TransactionRepository repository,
-                                    ApplicationEventPublisher eventPublisher) {
+                                    ApplicationEventPublisher eventPublisher
+    ) {
         this.mapper = mapper;
         this.repository = repository;
         this.eventPublisher = eventPublisher;
@@ -30,11 +31,9 @@ public class CreateTransactionHandler implements CreateTransactionUseCase {
                 request.value()
         );
 
-        var saved = repository.create(transaction);
+        var saved = repository.save(transaction);
 
-        eventPublisher.publishEvent(new TransactionCreatedEvent(
-                saved.getTransactionExternalId(),
-                saved.getValue()));
+        eventPublisher.publishEvent(new TransactionCreatedEvent(saved));
         return mapper.ToDto(saved);
     }
 }

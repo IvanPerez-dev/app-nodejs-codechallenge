@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface TransactionRepository {
     Optional<Transaction> getById(UUID id);
 
-    Transaction create(Transaction transaction);
+    Transaction save(Transaction transaction);
 
     List<Transaction> getAll();
 }
