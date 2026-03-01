@@ -13,10 +13,4 @@ public class HealthController {
     public String health() {
         return "Transaction Service is running!";
     }
-
-    @GetMapping("/test")
-    public String test() {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "NO VALIDO");
-        
-    }
 }

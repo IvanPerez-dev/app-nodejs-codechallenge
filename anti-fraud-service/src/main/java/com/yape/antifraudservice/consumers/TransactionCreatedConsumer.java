@@ -18,7 +18,7 @@ public class TransactionCreatedConsumer {
 
     @KafkaListener(topics = "transaction.created")
     public void onTransactionCreated(TransactionEvent transaction) {
-        TransactionStatus status = transaction.value().compareTo(new BigDecimal("1000")) > 0
+        TransactionStatus status = transaction.value().compareTo(BigDecimal.valueOf(1000)) > 0
                 ? TransactionStatus.REJECTED
                 : TransactionStatus.APPROVED;
 

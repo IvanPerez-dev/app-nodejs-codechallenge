@@ -1,5 +1,7 @@
 package com.yape.transactionservice.application.usecases.createtransaction;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -10,13 +12,16 @@ public record CreateTransactionRequest(@NotNull(message = "accountExternalIdDebi
                                        UUID accountExternalIdDebit,
                                        @NotNull(message = "accountExternalIdCredit is required")
                                        UUID accountExternalIdCredit,
-                                       @NotNull(message = "tranferTypeId is required")
+                                       @NotNull(message = "transferTypeId is required")
+                                       @Min(value = 1, message = "transferTypeId must be 1 or 2")
+                                       @Max(value = 2, message = "transferTypeId must be 1 or 2")
                                        Integer transferTypeId,
                                        @NotNull(message = "value is required")
                                        @Positive(message = "value must be greater than 0")
                                        BigDecimal value
 ) {
 }
+
 
 
 

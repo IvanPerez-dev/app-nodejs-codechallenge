@@ -1,6 +1,7 @@
 package com.yape.transactionservice.domain.models;
 
 import com.yape.transactionservice.domain.enums.TransactionStatus;
+import com.yape.transactionservice.domain.exceptions.DomainException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,10 +24,26 @@ public class Transaction {
     private TransactionStatus status;
     private LocalDateTime createdAt;
 
-    public static Transaction Create(UUID idDebit, UUID idCredit, Integer transferTypeId, BigDecimal value) {
+    public static Transaction Create(UUID debitId, UUID creditId, Integer transferTypeId, BigDecimal value) {
+
+        if (value.compareTo(BigDecimal.ZERO) <= 0) {
+            throw  new DomainException("Value must be greater than zero");
+        }
+
+        if (debitId == null || debitId.equals(new UUID(0L,0L))) {
+            throw  new DomainException("credit id can't be empty ");
+        }
+
+        if (creditId == null || creditId.equals(new UUID(0L,0L))) {
+            throw  new DomainException("credit id can't be empty ");
+        }
+        if (transferTypeId.equals(0)) {
+            throw  new DomainException("transferTypeId must be greater than zero");
+        }
+
         return Transaction.builder().transactionExternalId(UUID.randomUUID())
-                          .accountExternalIdCredit(idCredit)
-                          .accountExternalIdDebit(idDebit)
+                          .accountExternalIdCredit(creditId)
+                          .accountExternalIdDebit(debitId)
                           .transferTypeId(transferTypeId)
                           .value(value)
                           .status(TransactionStatus.PENDING)

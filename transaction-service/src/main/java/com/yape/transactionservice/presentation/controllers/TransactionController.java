@@ -44,7 +44,7 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}")
-    public Optional<GetByIdTransactionResponse> getById(@PathVariable UUID id) {
+    public GetByIdTransactionResponse getById(@PathVariable UUID id) {
         return getByIdTransactionUseCase.execute(new GetByIdTransactionRequest(id));
     }
 }

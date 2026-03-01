@@ -1,8 +1,11 @@
 package com.yape.transactionservice.presentation.exceptionhandlers;
 
+import com.yape.transactionservice.domain.exceptions.DomainException;
+import com.yape.transactionservice.domain.exceptions.TransactionNotFoundException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -38,4 +41,22 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest()
                 .body(Map.of("error", "El JSON tiene un tipo de dato inválido"));
     }
+
+    @ExceptionHandler(TransactionNotFoundException.class)
+    public ProblemDetail handleNotFound(TransactionNotFoundException ex) {
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problem.setTitle("Resource not found");
+        problem.setDetail(ex.getMessage());
+
+        return problem;
+    }
+    @ExceptionHandler(DomainException.class)
+    public ProblemDetail handleDomain(DomainException ex) {
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatusCode.valueOf(422));
+        problem.setTitle("Unprocessable Entity");
+        problem.setDetail(ex.getMessage());
+
+        return problem;
+    }
+
 }

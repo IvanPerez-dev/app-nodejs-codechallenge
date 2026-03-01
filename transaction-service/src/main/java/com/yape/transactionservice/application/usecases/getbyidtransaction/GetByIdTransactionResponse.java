@@ -8,8 +8,8 @@ import java.util.UUID;
 public record GetByIdTransactionResponse(UUID transactionExternalId,
                                          UUID accountExternalIdDebit,
                                          UUID accountExternalIdCredit,
-                                         GetTransactionResponse.TransactionTypeDto transactionType,
-                                         GetTransactionResponse.TransactionStatusDto transactionStatus,
+                                         TransactionTypeDto transactionType,
+                                         TransactionStatusDto transactionStatus,
                                          BigDecimal value) {
     public record TransactionTypeDto(String name) {
     }
