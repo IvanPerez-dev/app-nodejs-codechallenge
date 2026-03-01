@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class KafkaTransactionEventPublisher implements TransactionEventPublisher {
-    
+
     private final KafkaTemplate<String, Transaction> kafkaTemplate;
 
     public KafkaTransactionEventPublisher(KafkaTemplate<String, Transaction> kafkaTemplate) {
