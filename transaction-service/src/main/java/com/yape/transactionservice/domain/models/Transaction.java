@@ -52,15 +52,13 @@ public class Transaction {
 
     }
 
-    public void approve() {
-        this.status = TransactionStatus.APPROVED;
-    }
-
-    public void reject() {
-        this.status = TransactionStatus.REJECTED;
-    }
-
     public void changeStatus(TransactionStatus status) {
+        if(status == null) {
+            throw new DomainException("status can't be null");
+        }
+        if (this.status != TransactionStatus.PENDING) {
+            throw  new DomainException("You cannot change a state that is not pending");
+        }
         this.status = status;
     }
 }
