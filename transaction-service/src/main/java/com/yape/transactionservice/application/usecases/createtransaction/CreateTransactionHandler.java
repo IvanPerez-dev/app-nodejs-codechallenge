@@ -1,19 +1,24 @@
 package com.yape.transactionservice.application.usecases.createtransaction;
 
 import com.yape.transactionservice.application.abstractions.CreateTransactionUseCase;
+import com.yape.transactionservice.domain.events.TransactionCreatedEvent;
 import com.yape.transactionservice.domain.models.Transaction;
 import com.yape.transactionservice.domain.repostories.TransactionRepository;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CreateTransactionHandler implements CreateTransactionUseCase {
     private final CreateTransactionMapper mapper;
     private final TransactionRepository repository;
+    private final ApplicationEventPublisher eventPublisher;
 
     public CreateTransactionHandler(CreateTransactionMapper mapper,
-                                    TransactionRepository repository) {
+                                    TransactionRepository repository,
+                                    ApplicationEventPublisher eventPublisher) {
         this.mapper = mapper;
         this.repository = repository;
+        this.eventPublisher = eventPublisher;
     }
 
     @Override
@@ -25,7 +30,11 @@ public class CreateTransactionHandler implements CreateTransactionUseCase {
                 request.value()
         );
 
-        var transactionCreated = repository.create(transaction);
-        return mapper.ToDto(transactionCreated);
+        var saved = repository.create(transaction);
+
+        eventPublisher.publishEvent(new TransactionCreatedEvent(
+                saved.getTransactionExternalId(),
+                saved.getValue()));
+        return mapper.ToDto(saved);
     }
 }
